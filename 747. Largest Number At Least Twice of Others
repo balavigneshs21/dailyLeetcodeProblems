@@ -1,0 +1,26 @@
+
+class Solution {
+    public int dominantIndex(int[] arr) {
+    int maxvalue=Integer.MIN_VALUE;
+		int maxindex=0;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]>maxvalue) {
+				maxvalue=arr[i];
+				maxindex=i;
+			}
+		}
+		int answer=solution(arr,maxvalue,maxindex);
+        return answer;
+	}
+	private static int solution(int[] arr, int maxvalue, int maxindex) {
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]==maxvalue)continue;
+			int twiceOfNum=arr[i]*2;
+			if(twiceofnum>maxvalue) {
+				return -1;
+			}
+		}
+		return maxindex;
+		
+	}
+}
