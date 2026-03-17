@@ -1,0 +1,41 @@
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int index=0;
+        int tank=0,total=0;
+        for (int i=0;i<gas.length;i++) {
+            int diff=gas[i]-cost[i];
+            tank+=diff;
+            total+=diff;
+            if (tank<0) {
+                tank=0;
+                index=i+1;
+            }
+        }
+        return total>=0?index:-1;
+
+    }
+}
+
+//brute force approach
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        for(int i=0;i<gas.length;i++){
+            if(gas[i]<cost[i])continue;
+            int value=gas[i]-cost[i];
+            if(helper(i+1,value,gas,cost,i))return i;
+        }
+        return -1;
+        
+    }
+    boolean helper(int i,int value,int gas[],int cost[],int start){
+        while(true){
+            if(i>=gas.length)i=0;
+            if(i==start)return true;
+            value+=gas[i];
+            if(value<cost[i])break;
+            value-=cost[i];
+            i++;
+        }
+        return false;
+    }
+}
