@@ -1,0 +1,38 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        for(int i=0;i<intervals.length;i++){//bubble sorting 
+            for(int j=i+1;j<intervals.length;j++){
+                if(intervals[i][0]>intervals[j][0]){
+                    int []temp=intervals[i];
+                    intervals[i]=intervals[j];
+                    intervals[j]=temp;
+                }
+            }
+        }
+        int index=0;
+        int k=0;
+        while(index<intervals.length){
+            int currentStart=intervals[index][0];
+            int currentEnd=intervals[index][1];//need to check first arr L1 last element and first element in second arr F2 
+                                                    // L1>=F1
+            while(index<intervals.length-1&&currentEnd>=intervals[index+1][0]){
+                currentEnd=Math.max(currentEnd,intervals[index+1][1]);
+                index++;
+            }
+            intervals[k][0]=currentStart;
+            intervals[k][1]=currentEnd;
+            k++;
+            index++;
+        }
+        int result[][]=new int[k][2];
+        for(int i=0;i<k;i++){
+            for(int j=0;j<2;j++){
+                result[i][j]=intervals[i][j];
+            }
+        }
+        return result;
+
+
+        
+    }
+}
