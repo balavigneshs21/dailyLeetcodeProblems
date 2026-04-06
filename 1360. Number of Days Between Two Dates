@@ -1,0 +1,42 @@
+class Solution {
+    public int daysBetweenDates(String date1, String date2) {
+        int arr1[]=takeTheDates(date1);
+        int arr2[]=takeTheDates(date2);
+        return Math.abs(calculate(arr1)-calculate(arr2));
+        
+    }
+    int calculate(int arr[]){
+        int month[]={31,28,31,30,31,30,31,31,30,31,30,31};
+        int days=0;
+        int year=arr[0]-1;
+        days+=year*365;
+        days+=(year/4)+(year/400)-(year/100);//seeing whether this year are leap
+        for(int i=0;i<arr[1]-1;i++){
+            days+=month[i];
+        }
+        if(Leap(arr[0])&&(arr[1]>2))days++;
+        return days+=arr[2];
+
+
+    }
+    boolean Leap(int num){
+        return (num%4==0&&num%100!=0)||(num%400==0);
+    }
+    int[] takeTheDates(String s){
+        int index=0;
+        int arr[]=new int[3];
+        // 2019-06-29
+        int num=0;
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(ch=='-'){  
+                arr[index++]=num;
+                num=0;
+                continue;
+            }
+            num=num*10+(ch-'0');
+        }
+        arr[index++]=num;
+        return arr;
+    }
+}
